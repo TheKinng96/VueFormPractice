@@ -11,7 +11,13 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" v-model="userData.password" />
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              v-model.lazy="userData.password"
+            />
+            <p>{{userData.password}}</p>
           </div>
           <div class="form-group">
             <label for="age">Age</label>
@@ -24,17 +30,17 @@
           <label for="message">Message</label>
           <br />
           <!-- Interpolation between <textarea>{{ test }}</textarea> doesn't work!-->
-          <textarea id="message" rows="5" class="form-control"></textarea>
+          <textarea id="message" rows="5" class="form-control" v-model="message"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
           <div class="form-group">
             <label for="sendmail">
-              <input type="checkbox" id="sendmail" value="SendMail" /> Send Mail
+              <input type="checkbox" id="sendmail" value="SendMail" v-model="sendMail" /> Send Mail
             </label>
             <label for="sendInfomail">
-              <input type="checkbox" id="sendInfomail" value="SendInfoMail" /> Send Infomail
+              <input type="checkbox" id="sendInfomail" value="SendInfoMail" v-model="sendMail" /> Send Infomail
             </label>
           </div>
         </div>
@@ -75,12 +81,15 @@
             <p>Mail: {{userData.email}}</p>
             <p>Password:{{userData.password}}</p>
             <p>Age:{{userData.age}}</p>
-            <p>Message:</p>
+            <p style="white-space: pre">
+              Message:
+              {{message}}
+            </p>
             <p>
               <strong>Send Mail?</strong>
             </p>
             <ul>
-              <li></li>
+              <li v-for="item in sendMail" :key="item.index">{{item}}</li>
             </ul>
             <p>Gender:</p>
             <p>Priority:</p>
@@ -101,6 +110,8 @@ export default {
         password: "",
         age: 24,
       },
+      message: "New message",
+      sendMail: [],
     };
   },
 };
